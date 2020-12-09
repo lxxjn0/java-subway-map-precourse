@@ -1,9 +1,9 @@
 package subway.domain;
 
 public class Line {
-    private String name;
+    private final String name;
 
-    public Line(String name) {
+    public Line(final String name) {
         this.name = name;
     }
 
