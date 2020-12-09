@@ -5,18 +5,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class StationRepository {
+public class StationRepository implements Repository<Station, String> {
     private static final List<Station> stations = new ArrayList<>();
 
-    public static List<Station> stations() {
+    @Override
+    public List<Station> findAll() {
         return Collections.unmodifiableList(stations);
     }
 
-    public static void addStation(Station station) {
+    @Override
+    public void save(Station station) {
         stations.add(station);
     }
 
-    public static boolean deleteStation(String name) {
+    @Override
+    public boolean delete(String name) {
         return stations.removeIf(station -> Objects.equals(station.getName(), name));
     }
 }

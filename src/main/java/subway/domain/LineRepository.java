@@ -5,18 +5,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class LineRepository {
+public class LineRepository implements Repository<Line, String> {
     private static final List<Line> lines = new ArrayList<>();
 
-    public static List<Line> lines() {
+    @Override
+    public List<Line> findAll() {
         return Collections.unmodifiableList(lines);
     }
 
-    public static void addLine(Line line) {
+    @Override
+    public void save(Line line) {
         lines.add(line);
     }
 
-    public static boolean deleteLineByName(String name) {
+    @Override
+    public boolean delete(String name) {
         return lines.removeIf(line -> Objects.equals(line.getName(), name));
     }
 }
