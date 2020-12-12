@@ -6,17 +6,17 @@ import subway.station.domain.Station;
 import subway.station.domain.StationRepository;
 import subway.station.exception.IllegalStationException;
 
-public class StationService {
+public class StationDeleteService {
     private final StationRepository stationRepository;
 
-    public StationService(final StationRepository stationRepository) {
+    public StationDeleteService(final StationRepository stationRepository) {
         this.stationRepository = stationRepository;
     }
 
-    public void create(final Station station) {
-        if (stationRepository.existsByName(station.getName())) {
-            throw new IllegalStationException(ALREADY_EXISTS);
+    public boolean removeByName(final Station station) {
+        if (!stationRepository.existsByName(station.getName())) {
+            throw new IllegalStationException(NOT_EXISTS);
         }
-        stationRepository.save(station);
+        return stationRepository.deleteByName(station.getName());
     }
 }

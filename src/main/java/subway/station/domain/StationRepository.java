@@ -12,8 +12,10 @@ public class StationRepository {
         return Collections.unmodifiableList(STATIONS);
     }
 
-    public boolean exists(final Station station) {
-        return STATIONS.contains(station);
+    public boolean existsByName(final String name) {
+        return STATIONS.stream()
+                .anyMatch(station -> station.match(name))
+                ;
     }
 
     public void save(final Station station) {
