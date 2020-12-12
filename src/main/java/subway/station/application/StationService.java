@@ -15,11 +15,11 @@ public class StationService {
         this.stationRepository = stationRepository;
     }
 
-    public void create(final Station station) {
-        if (stationRepository.existsByName(station.getName())) {
+    public void create(final StationRequest request) {
+        if (stationRepository.existsByName(request.getName())) {
             throw new IllegalStationException(ALREADY_EXISTS);
         }
-        stationRepository.save(station);
+        stationRepository.save(request.toEntity());
     }
 
     public List<Station> show() {
