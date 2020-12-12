@@ -12,6 +12,10 @@ public class StationRepository {
         return Collections.unmodifiableList(STATIONS);
     }
 
+    public boolean exists(final Station station) {
+        return STATIONS.contains(station);
+    }
+
     public void save(final Station station) {
         STATIONS.add(station);
     }
