@@ -28,9 +28,7 @@ public class LineRepositoryFactory {
     public static LineRepository generate() {
         final LineRepository lineRepository = new LineRepository();
 
-        for (Line line : initializedLines) {
-            lineRepository.save(line);
-        }
+        lineRepository.saveAll(initializedLines);
         return lineRepository;
     }
 }

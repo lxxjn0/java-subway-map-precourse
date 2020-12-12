@@ -36,9 +36,7 @@ public class StationRepositoryFactory {
     public static StationRepository generate() {
         final StationRepository stationRepository = new StationRepository();
 
-        for (Station station : initializedStations) {
-            stationRepository.save(station);
-        }
+        stationRepository.saveAll(initializedStations);
         return stationRepository;
     }
 }
