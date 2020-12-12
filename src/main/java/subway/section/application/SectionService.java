@@ -24,13 +24,7 @@ public class SectionService {
     }
 
     public void create(final SectionRequest request) {
-        if (!stationRepository.existsByName(request.getStationName())) {
-            throw new IllegalStationException(NOT_EXISTS);
-        }
-
-        if (!lineRepository.existsByName(request.getLineName())) {
-            throw new IllegalLineException(IllegalLineException.NOT_EXISTS);
-        }
+        validateStationAndLine(request.getStationName(), request.getLineName());
 
         final Section section = request.toEntity();
 
@@ -41,12 +35,20 @@ public class SectionService {
     }
 
     public boolean removeByLineAndStation(final SectionDeleteRequest request) {
-        if (!stationRepository.existsByName(request.getStationName())) {
-            throw new IllegalStationException(NOT_EXISTS);
-        }
+        validateStationAndLine(request.getStationName(), request.getLineName());
 
         final Section section = request.toEntity();
 
         return sectionRepository.deleteByLineAndStation(section.getLine(), section.getStation());
+    }
+
+    private void validateStationAndLine(final String stationName, final String lineName) {
+        if (!stationRepository.existsByName(stationName)) {
+            throw new IllegalStationException(NOT_EXISTS);
+        }
+
+        if (!lineRepository.existsByName(lineName)) {
+            throw new IllegalLineException(IllegalLineException.NOT_EXISTS);
+        }
     }
 }
