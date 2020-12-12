@@ -16,6 +16,13 @@ public class SectionRepository {
         return Collections.unmodifiableList(SECTIONS);
     }
 
+    public long countByLine(final Line line) {
+        return SECTIONS.stream()
+                .filter(section -> section.match(line))
+                .count()
+                ;
+    }
+
     public void save(final Section section) {
         SECTIONS.add(section);
     }

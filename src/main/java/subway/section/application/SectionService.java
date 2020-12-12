@@ -1,10 +1,13 @@
 package subway.section.application;
 
+import static subway.section.exception.IllegalSectionException.*;
 import static subway.station.exception.IllegalStationException.*;
 
 import subway.line.domain.LineRepository;
 import subway.line.exception.IllegalLineException;
+import subway.section.domain.Section;
 import subway.section.domain.SectionRepository;
+import subway.section.exception.IllegalSectionException;
 import subway.station.domain.StationRepository;
 import subway.station.exception.IllegalStationException;
 
@@ -29,6 +32,11 @@ public class SectionService {
             throw new IllegalLineException(IllegalLineException.NOT_EXISTS);
         }
 
-        sectionRepository.save(request.toEntity());
+        final Section section = request.toEntity();
+
+        if (sectionRepository.countByLine(section.getLine()) < section.getSequence()) {
+            throw new IllegalSectionException(INVALID_SEQUENCE);
+        }
+        sectionRepository.save(section);
     }
 }

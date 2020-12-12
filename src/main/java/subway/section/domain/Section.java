@@ -34,6 +34,10 @@ public class Section {
         return this.line.equals(line) && this.station.equals(station);
     }
 
+    public boolean match(final Line line) {
+        return this.line.equals(line);
+    }
+
     public int getSequence() {
         return sequence;
     }
