@@ -8,20 +8,19 @@ import subway.station.domain.Station;
 
 public class Section {
     private static final int SEQUENCE_LOWER_BOUND = 1;
-
-    private final int sequence;
     private final Line line;
     private final Station station;
+    private int sequence;
 
-    public Section(final int sequence, final Line line, final Station station) {
-        this.sequence = sequence;
+    public Section(final Line line, final Station station, final int sequence) {
         this.line = line;
         this.station = station;
+        this.sequence = sequence;
         validate(sequence);
     }
 
-    public static Section of(final int sequence, final String lineName, final String stationName) {
-        return new Section(sequence, new Line(lineName), new Station(stationName));
+    public static Section of(final String lineName, final String stationName, final int sequence) {
+        return new Section(new Line(lineName), new Station(stationName), sequence);
     }
 
     private void validate(final int sequence) {
@@ -36,6 +35,14 @@ public class Section {
 
     public boolean match(final Line line) {
         return this.line.equals(line);
+    }
+
+    public boolean isOver(final int sequence) {
+        return this.sequence >= sequence;
+    }
+
+    public void increaseSequence() {
+        sequence++;
     }
 
     public int getSequence() {

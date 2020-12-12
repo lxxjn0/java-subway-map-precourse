@@ -24,7 +24,7 @@ public class SectionService {
     }
 
     public void create(final SectionRequest request) {
-        validateStationAndLine(request.getStationName(), request.getLineName());
+        validateLineAndStation(request.getLineName(), request.getStationName());
 
         final Section section = request.toEntity();
 
@@ -35,20 +35,20 @@ public class SectionService {
     }
 
     public boolean removeByLineAndStation(final SectionDeleteRequest request) {
-        validateStationAndLine(request.getStationName(), request.getLineName());
+        validateLineAndStation(request.getLineName(), request.getStationName());
 
         final Section section = request.toEntity();
 
         return sectionRepository.deleteByLineAndStation(section.getLine(), section.getStation());
     }
 
-    private void validateStationAndLine(final String stationName, final String lineName) {
-        if (!stationRepository.existsByName(stationName)) {
-            throw new IllegalStationException(NOT_EXISTS);
-        }
-
+    private void validateLineAndStation(final String lineName, final String stationName) {
         if (!lineRepository.existsByName(lineName)) {
             throw new IllegalLineException(IllegalLineException.NOT_EXISTS);
+        }
+
+        if (!stationRepository.existsByName(stationName)) {
+            throw new IllegalStationException(NOT_EXISTS);
         }
     }
 }

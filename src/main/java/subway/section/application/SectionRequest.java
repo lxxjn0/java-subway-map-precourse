@@ -16,7 +16,7 @@ public class SectionRequest extends AbstractRequest<Section> {
 
     @Override
     public Section toEntity() {
-        return Section.of(sequence, lineName, stationName);
+        return Section.of(lineName, stationName, sequence);
     }
 
     public int getSequence() {

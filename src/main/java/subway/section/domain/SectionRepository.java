@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import subway.line.domain.Line;
 import subway.station.domain.Station;
@@ -24,6 +23,11 @@ public class SectionRepository {
     }
 
     public void save(final Section section) {
+        SECTIONS.stream()
+                .filter(value -> value.isOver(section.getSequence()))
+                .forEach(Section::increaseSequence)
+        ;
+
         SECTIONS.add(section);
     }
 
@@ -32,8 +36,6 @@ public class SectionRepository {
     }
 
     public boolean deleteByLineAndStation(final Line line, final Station station) {
-        return SECTIONS.removeIf(
-                section -> Objects.equals(section.getLine(), line)
-                        && Objects.equals(section.getStation(), station));
+        return SECTIONS.removeIf(section -> section.match(line, station));
     }
 }
