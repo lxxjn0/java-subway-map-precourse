@@ -1,4 +1,4 @@
-package subway.domain;
+package subway.station.domain;
 
 public class Station {
     private final String name;

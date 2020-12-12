@@ -1,4 +1,7 @@
-package subway.domain;
+package subway.section.domain;
+
+import subway.line.domain.Line;
+import subway.station.domain.Station;
 
 public class Section {
     private final int sequence;

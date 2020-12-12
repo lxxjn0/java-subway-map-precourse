@@ -1,11 +1,11 @@
-package subway.infra.factory;
+package subway.line.infra;
 
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import subway.domain.LineRepository;
+import subway.line.domain.LineRepository;
 
 class LineRepositoryFactoryTest {
     @DisplayName("초기 설정된 LineRepository를 반환한다")

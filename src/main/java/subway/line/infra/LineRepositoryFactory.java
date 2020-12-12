@@ -1,16 +1,16 @@
-package subway.infra.factory;
+package subway.line.infra;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import subway.domain.Line;
-import subway.domain.LineRepository;
+import subway.line.domain.Line;
+import subway.line.domain.LineRepository;
 
 public class LineRepositoryFactory {
-    static final Line 이호선 = new Line("2호선");
-    static final Line 삼호선 = new Line("3호선");
-    static final Line 신분당선 = new Line("신분당선");
+    public static final Line 이호선 = new Line("2호선");
+    public static final Line 삼호선 = new Line("3호선");
+    public static final Line 신분당선 = new Line("신분당선");
     private static final List<Line> initializedLines = new ArrayList<>();
 
     static {
