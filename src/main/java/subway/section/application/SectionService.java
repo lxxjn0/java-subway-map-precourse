@@ -3,6 +3,7 @@ package subway.section.application;
 import static subway.station.exception.IllegalStationException.*;
 
 import subway.line.domain.LineRepository;
+import subway.line.exception.IllegalLineException;
 import subway.section.domain.SectionRepository;
 import subway.station.domain.StationRepository;
 import subway.station.exception.IllegalStationException;
@@ -23,6 +24,11 @@ public class SectionService {
         if (!stationRepository.existsByName(request.getStationName())) {
             throw new IllegalStationException(NOT_EXISTS);
         }
+
+        if (!lineRepository.existsByName(request.getLineName())) {
+            throw new IllegalLineException(IllegalLineException.NOT_EXISTS);
+        }
+
         sectionRepository.save(request.toEntity());
     }
 }

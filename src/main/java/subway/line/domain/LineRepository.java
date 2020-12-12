@@ -12,6 +12,12 @@ public class LineRepository {
         return Collections.unmodifiableList(LINES);
     }
 
+    public boolean existsByName(final String name) {
+        return LINES.stream()
+                .anyMatch(line -> line.match(name))
+                ;
+    }
+
     public void save(final Line line) {
         LINES.add(line);
     }
