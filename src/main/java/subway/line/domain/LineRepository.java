@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class LineRepository {
     private static final List<Line> LINES = new ArrayList<>();
@@ -22,6 +21,6 @@ public class LineRepository {
     }
 
     public boolean deleteByName(final String name) {
-        return LINES.removeIf(line -> Objects.equals(line.getName(), name));
+        return LINES.removeIf(line -> line.match(name));
     }
 }
