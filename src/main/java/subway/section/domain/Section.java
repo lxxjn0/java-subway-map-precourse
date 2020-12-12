@@ -20,6 +20,10 @@ public class Section {
         validate(sequence);
     }
 
+    public static Section of(final int sequence, final String lineName, final String stationName) {
+        return new Section(sequence, new Line(lineName), new Station(stationName));
+    }
+
     private void validate(final int sequence) {
         if (sequence < SEQUENCE_LOWER_BOUND) {
             throw new IllegalSectionException(INVALID_SEQUENCE);
