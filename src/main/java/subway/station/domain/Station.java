@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Station {
     private static final int VALID_NAME_LENGTH = 2;
 
-    private final String name;
+    private String name;
 
     public Station(final String name) {
         this.name = name;

@@ -8,8 +8,8 @@ import subway.station.domain.Station;
 
 public class Section {
     private static final int SEQUENCE_LOWER_BOUND = 1;
-    private final Line line;
-    private final Station station;
+    private Line line;
+    private Station station;
     private int sequence;
 
     public Section(final Line line, final Station station, final int sequence) {

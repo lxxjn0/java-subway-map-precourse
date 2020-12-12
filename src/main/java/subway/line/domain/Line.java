@@ -9,7 +9,7 @@ import subway.line.exception.IllegalLineException;
 public class Line {
     private static final int VALID_NAME_LENGTH = 2;
 
-    private final String name;
+    private String name;
 
     public Line(final String name) {
         this.name = name;
