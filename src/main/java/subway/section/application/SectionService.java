@@ -39,4 +39,14 @@ public class SectionService {
         }
         sectionRepository.save(section);
     }
+
+    public boolean removeByLineAndStation(final SectionDeleteRequest request) {
+        if (!stationRepository.existsByName(request.getStationName())) {
+            throw new IllegalStationException(NOT_EXISTS);
+        }
+
+        final Section section = request.toEntity();
+
+        return sectionRepository.deleteByLineAndStation(section.getLine(), section.getStation());
+    }
 }
