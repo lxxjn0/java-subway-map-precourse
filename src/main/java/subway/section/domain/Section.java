@@ -47,6 +47,10 @@ public class Section {
         sequence++;
     }
 
+    public void decreaseSequence() {
+        sequence--;
+    }
+
     public void update(final Section section) {
         this.line = section.getLine();
         this.station = section.getStation();

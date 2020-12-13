@@ -12,6 +12,11 @@ public class SectionDeleteRequest extends AbstractRequest<Section> {
         this.stationName = stationName;
     }
 
+    @Override
+    public Section toEntity() {
+        return Section.of(lineName, stationName, Integer.MAX_VALUE);
+    }
+
     public String getLineName() {
         return lineName;
     }

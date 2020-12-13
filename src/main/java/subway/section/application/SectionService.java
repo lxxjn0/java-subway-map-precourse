@@ -51,11 +51,23 @@ public class SectionService {
 
         final Section section = request.toEntity();
 
-        if (sectionRepository.countByLine(section.getLine()) <= LOWER_BOUND_STATION_SIZE) {
+        final Section savedSection = sectionRepository.findByLineAndStation(section.getLine(),
+                section.getStation());
+
+        if (sectionRepository.countByLine(savedSection.getLine()) <= LOWER_BOUND_STATION_SIZE) {
             throw new IllegalSectionException(CONSTRAINT_STATION_SIZE);
         }
 
-        return sectionRepository.deleteByLineAndStation(section.getLine(), section.getStation());
+        final List<Section> sections = sectionRepository.findAllByLineAndSequenceGreaterThanEqual(
+                savedSection.getLine(), savedSection.getSequence());
+
+        for (final Section value : sections) {
+            value.decreaseSequence();
+        }
+
+        sectionRepository.updateAll(sections);
+        return sectionRepository.deleteByLineAndStation(savedSection.getLine(),
+                savedSection.getStation());
     }
 
     private void validateLineAndStation(final String lineName, final String stationName) {
