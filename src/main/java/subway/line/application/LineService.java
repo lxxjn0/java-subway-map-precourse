@@ -14,8 +14,8 @@ public class LineService {
     private final SectionRepository sectionRepository;
 
     public LineService(
-            final LineRepository lineRepository,
             final StationRepository stationRepository,
+            final LineRepository lineRepository,
             final SectionRepository sectionRepository
     ) {
         this.lineRepository = lineRepository;
