@@ -1,5 +1,6 @@
 package subway.section.application;
 
+import static subway.section.domain.Section.*;
 import static subway.section.exception.IllegalSectionException.*;
 import static subway.station.exception.IllegalStationException.*;
 
@@ -49,6 +50,10 @@ public class SectionService {
         validateLineAndStation(request.getLineName(), request.getStationName());
 
         final Section section = request.toEntity();
+
+        if (sectionRepository.countByLine(section.getLine()) <= LOWER_BOUND_STATION_SIZE) {
+            throw new IllegalSectionException(CONSTRAINT_STATION_SIZE);
+        }
 
         return sectionRepository.deleteByLineAndStation(section.getLine(), section.getStation());
     }

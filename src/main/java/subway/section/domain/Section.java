@@ -7,7 +7,9 @@ import subway.section.exception.IllegalSectionException;
 import subway.station.domain.Station;
 
 public class Section {
+    public static final long LOWER_BOUND_STATION_SIZE = 2;
     private static final int SEQUENCE_LOWER_BOUND = 1;
+
     private Line line;
     private Station station;
     private int sequence;
