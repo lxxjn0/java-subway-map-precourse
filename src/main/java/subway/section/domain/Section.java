@@ -37,12 +37,19 @@ public class Section {
         return this.line.equals(line);
     }
 
-    public boolean isOver(final int sequence) {
+    public boolean isGreaterThanEqual(final int sequence) {
         return this.sequence >= sequence;
     }
 
     public void increaseSequence() {
         sequence++;
+    }
+
+    public void update(final Section section) {
+        this.line = section.getLine();
+        this.station = section.getStation();
+        this.sequence = section.getSequence();
+        validate(sequence);
     }
 
     public int getSequence() {

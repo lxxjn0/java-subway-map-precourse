@@ -3,6 +3,8 @@ package subway.section.application;
 import static subway.section.exception.IllegalSectionException.*;
 import static subway.station.exception.IllegalStationException.*;
 
+import java.util.List;
+
 import subway.line.domain.LineRepository;
 import subway.line.exception.IllegalLineException;
 import subway.section.domain.Section;
@@ -28,9 +30,18 @@ public class SectionService {
 
         final Section section = request.toEntity();
 
-        if (sectionRepository.countByLine(section.getLine()) < section.getSequence()) {
+        final List<Section> sections = sectionRepository.findAllByLineAndSequenceGreaterThanEqual(
+                section.getLine(), section.getSequence());
+
+        if (sections.size() < section.getSequence()) {
             throw new IllegalSectionException(INVALID_SEQUENCE);
         }
+
+        for (final Section value : sections) {
+            value.increaseSequence();
+        }
+
+        sectionRepository.updateAll(sections);
         sectionRepository.save(section);
     }
 
