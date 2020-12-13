@@ -1,6 +1,6 @@
 package subway.common.application;
 
-import subway.common.Method;
+import subway.common.domain.Method;
 
 public abstract class AbstractRequest<T> {
     private String uri;

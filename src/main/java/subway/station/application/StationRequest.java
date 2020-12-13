@@ -1,7 +1,7 @@
 package subway.station.application;
 
-import subway.common.Method;
 import subway.common.application.AbstractRequest;
+import subway.common.domain.Method;
 import subway.station.domain.Station;
 
 public class StationRequest extends AbstractRequest<Station> {

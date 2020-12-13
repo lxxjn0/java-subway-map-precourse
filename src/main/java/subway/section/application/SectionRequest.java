@@ -1,7 +1,7 @@
 package subway.section.application;
 
-import subway.common.Method;
 import subway.common.application.AbstractRequest;
+import subway.common.domain.Method;
 import subway.section.domain.Section;
 
 public class SectionRequest extends AbstractRequest<Section> {

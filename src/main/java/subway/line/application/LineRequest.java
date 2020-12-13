@@ -1,7 +1,7 @@
 package subway.line.application;
 
-import subway.common.Method;
 import subway.common.application.AbstractRequest;
+import subway.common.domain.Method;
 import subway.line.domain.Line;
 
 public class LineRequest extends AbstractRequest<Line> {

@@ -3,8 +3,8 @@ package subway.section.application;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import subway.common.Method;
 import subway.common.application.AbstractRequest;
+import subway.common.domain.Method;
 import subway.line.domain.Line;
 
 public class SectionViewRequest extends AbstractRequest<List<Line>> {
