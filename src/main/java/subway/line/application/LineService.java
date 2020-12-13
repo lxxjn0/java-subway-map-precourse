@@ -42,6 +42,7 @@ public class LineService {
             throw new IllegalLineException(IllegalLineException.NOT_EXISTS);
         }
 
+        sectionService.removeAllByLine(request.toEntity());
         return lineRepository.deleteByName(request.getName());
     }
 }

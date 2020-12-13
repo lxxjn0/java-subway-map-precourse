@@ -49,4 +49,8 @@ public class SectionRepository {
     public boolean deleteByLineAndStation(final Line line, final Station station) {
         return SECTIONS.removeIf(section -> section.match(line, station));
     }
+
+    public boolean deleteAllByLine(final Line line) {
+        return SECTIONS.removeIf(section -> section.match(line));
+    }
 }

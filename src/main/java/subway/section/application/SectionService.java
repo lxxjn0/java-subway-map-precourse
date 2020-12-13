@@ -2,10 +2,10 @@ package subway.section.application;
 
 import static subway.section.domain.Section.*;
 import static subway.section.exception.IllegalSectionException.*;
-import static subway.station.exception.IllegalStationException.*;
 
 import java.util.List;
 
+import subway.line.domain.Line;
 import subway.line.domain.LineRepository;
 import subway.line.exception.IllegalLineException;
 import subway.section.domain.Section;
@@ -74,7 +74,14 @@ public class SectionService {
         }
 
         if (!stationRepository.existsByName(stationName)) {
-            throw new IllegalStationException(NOT_EXISTS);
+            throw new IllegalStationException(IllegalStationException.NOT_EXISTS);
         }
+    }
+
+    public boolean removeAllByLine(final Line line) {
+        if (!lineRepository.existsByName(line.getName())) {
+            throw new IllegalLineException(IllegalLineException.NOT_EXISTS);
+        }
+        return sectionRepository.deleteAllByLine(line);
     }
 }
