@@ -16,7 +16,7 @@ public class StationDeleteService {
         this.sectionRepository = sectionRepository;
     }
 
-    public boolean removeByName(final StationDeleteRequest request) {
+    public StationDeleteResponse removeByName(final StationDeleteRequest request) {
         if (!stationRepository.existsByName(request.getName())) {
             throw new IllegalStationException(NOT_EXISTS);
         }
@@ -25,6 +25,6 @@ public class StationDeleteService {
             throw new IllegalStationException(REGISTERED_SECTION);
         }
 
-        return stationRepository.deleteByName(request.getName());
+        return new StationDeleteResponse(stationRepository.deleteByName(request.getName()));
     }
 }

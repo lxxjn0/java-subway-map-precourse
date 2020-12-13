@@ -4,7 +4,6 @@ import static subway.station.exception.IllegalStationException.*;
 
 import java.util.List;
 
-import subway.station.domain.Station;
 import subway.station.domain.StationRepository;
 import subway.station.exception.IllegalStationException;
 
@@ -22,7 +21,7 @@ public class StationService {
         stationRepository.save(request.toEntity());
     }
 
-    public List<Station> show() {
-        return stationRepository.findAll();
+    public List<StationResponse> showAll() {
+        return StationResponse.toList(stationRepository.findAll());
     }
 }
