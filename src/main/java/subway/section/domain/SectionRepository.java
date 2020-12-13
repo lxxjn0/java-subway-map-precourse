@@ -23,10 +23,12 @@ public class SectionRepository {
                 ;
     }
 
-    public List<Section> findAllByLineOrderBySequence() {
+    public List<Section> findAllByLineOrderBySequence(final Line line) {
         return SECTIONS.stream()
+                .filter(section -> section.match(line))
                 .sorted(Comparator.comparing(Section::getSequence))
-                .collect(Collectors.toUnmodifiableList());
+                .collect(Collectors.toUnmodifiableList())
+                ;
     }
 
     public List<Section> findAllByLineAndSequenceGreaterThanEqual(final Line line,

@@ -4,7 +4,10 @@ import static subway.section.domain.Section.*;
 import static subway.section.exception.IllegalSectionException.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+import subway.line.application.LineResponse;
 import subway.line.domain.LineRepository;
 import subway.line.exception.IllegalLineException;
 import subway.section.domain.Section;
@@ -29,7 +32,6 @@ public class SectionService {
         validateLineAndStation(request.getLineName(), request.getStationName());
 
         final Section section = request.toEntity();
-
         final List<Section> persists = sectionRepository.findAllByLineAndSequenceGreaterThanEqual(
                 section.getLine(), section.getSequence());
 
@@ -44,14 +46,27 @@ public class SectionService {
         sectionRepository.save(section);
     }
 
+    public Map<LineResponse, List<SectionResponse>> showAllByEachLine(
+            final SectionViewRequest request) {
+        if (!lineRepository.existsAllByNameIn(request.getLineNames())) {
+            throw new IllegalLineException(IllegalLineException.NOT_EXISTS);
+        }
+
+        return request.toEntity().stream()
+                .collect(Collectors.toMap(
+                        LineResponse::from,
+                        line -> SectionResponse.toList(
+                                sectionRepository.findAllByLineOrderBySequence(line)
+                        )))
+                ;
+    }
+
     public SectionDeleteResponse removeByLineAndStation(final SectionDeleteRequest request) {
         validateLineAndStation(request.getLineName(), request.getStationName());
 
         final Section section = request.toEntity();
-
         final Section persist = sectionRepository.findByLineAndStation(section.getLine(),
                 section.getStation());
-
         final List<Section> persists = sectionRepository.findAllByLineAndSequenceGreaterThanEqual(
                 persist.getLine(), persist.getSequence());
 

@@ -18,6 +18,12 @@ public class LineRepository {
                 ;
     }
 
+    public boolean existsAllByNameIn(final Collection<String> names) {
+        return names.stream()
+                .allMatch(this::existsByName)
+                ;
+    }
+
     public void save(final Line line) {
         LINES.add(line);
     }
