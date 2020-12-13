@@ -2,7 +2,6 @@ package subway.line.application;
 
 import java.util.List;
 
-import subway.line.domain.Line;
 import subway.line.domain.LineRepository;
 import subway.line.exception.IllegalLineException;
 import subway.section.domain.SectionRepository;
@@ -40,16 +39,16 @@ public class LineService {
         lineRepository.save(request.toEntity());
     }
 
-    public List<Line> show() {
-        return lineRepository.findAll();
+    public List<LineResponse> showAll() {
+        return LineResponse.toList(lineRepository.findAll());
     }
 
-    public boolean deleteByName(final LineDeleteRequest request) {
+    public LineDeleteResponse deleteByName(final LineDeleteRequest request) {
         if (!lineRepository.existsByName(request.getName())) {
             throw new IllegalLineException(IllegalLineException.NOT_EXISTS);
         }
 
         sectionRepository.deleteAllByLine(request.toEntity());
-        return lineRepository.deleteByName(request.getName());
+        return new LineDeleteResponse(lineRepository.deleteByName(request.getName()));
     }
 }

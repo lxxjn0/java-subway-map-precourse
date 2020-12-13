@@ -1,9 +1,9 @@
-package subway.station.application;
+package subway.line.application;
 
-public class StationDeleteResponse {
+public class LineDeleteResponse {
     private boolean isDeleted;
 
-    public StationDeleteResponse(final boolean isDeleted) {
+    public LineDeleteResponse(final boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 
