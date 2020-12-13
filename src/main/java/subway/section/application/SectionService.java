@@ -44,7 +44,7 @@ public class SectionService {
         sectionRepository.save(section);
     }
 
-    public boolean removeByLineAndStation(final SectionDeleteRequest request) {
+    public SectionDeleteResponse removeByLineAndStation(final SectionDeleteRequest request) {
         validateLineAndStation(request.getLineName(), request.getStationName());
 
         final Section section = request.toEntity();
@@ -63,8 +63,8 @@ public class SectionService {
             value.decreaseSequence();
         }
 
-        return sectionRepository.deleteByLineAndStation(persist.getLine(),
-                persist.getStation());
+        return new SectionDeleteResponse(sectionRepository.deleteByLineAndStation(persist.getLine(),
+                persist.getStation()));
     }
 
     private void validateLineAndStation(final String lineName, final String stationName) {
