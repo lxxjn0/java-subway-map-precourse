@@ -1,8 +1,7 @@
 package subway.line.application;
 
-import static subway.station.exception.IllegalStationException.*;
-
 import subway.line.domain.LineRepository;
+import subway.line.exception.IllegalLineException;
 import subway.section.application.SectionService;
 import subway.station.domain.StationRepository;
 import subway.station.exception.IllegalStationException;
@@ -24,11 +23,15 @@ public class LineService {
 
     public void create(final LineRequest request) {
         if (!stationRepository.existsByName(request.getUpLastStationName())) {
-            throw new IllegalStationException(NOT_EXISTS);
+            throw new IllegalStationException(IllegalStationException.NOT_EXISTS);
         }
 
         if (!stationRepository.existsByName(request.getDownLastStationName())) {
-            throw new IllegalStationException(NOT_EXISTS);
+            throw new IllegalStationException(IllegalStationException.NOT_EXISTS);
+        }
+
+        if (lineRepository.existsByName(request.getLineName())) {
+            throw new IllegalLineException(IllegalLineException.ALREADY_EXISTS);
         }
 
         lineRepository.save(request.toEntity());
