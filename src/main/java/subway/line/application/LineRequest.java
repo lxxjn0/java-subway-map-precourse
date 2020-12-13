@@ -1,5 +1,6 @@
 package subway.line.application;
 
+import subway.common.Method;
 import subway.common.application.AbstractRequest;
 import subway.line.domain.Line;
 
@@ -8,11 +9,26 @@ public class LineRequest extends AbstractRequest<Line> {
     private String upLastStationName;
     private String downLastStationName;
 
-    public LineRequest(final String lineName, final String upLastStationName,
-            final String downLastStationName) {
+    private LineRequest(
+            final String uri,
+            final Method method,
+            final String lineName,
+            final String upLastStationName,
+            final String downLastStationName
+    ) {
+        super(uri, method);
         this.lineName = lineName;
         this.upLastStationName = upLastStationName;
         this.downLastStationName = downLastStationName;
+    }
+
+    public static LineRequest of(
+            final String lineName,
+            final String upLastStationName,
+            final String downLastStationName
+    ) {
+        return new LineRequest("/lines", Method.CREATE, lineName, upLastStationName,
+                downLastStationName);
     }
 
     @Override
