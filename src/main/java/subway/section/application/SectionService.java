@@ -31,18 +31,17 @@ public class SectionService {
 
         final Section section = request.toEntity();
 
-        final List<Section> sections = sectionRepository.findAllByLineAndSequenceGreaterThanEqual(
+        final List<Section> persists = sectionRepository.findAllByLineAndSequenceGreaterThanEqual(
                 section.getLine(), section.getSequence());
 
-        if (sections.size() < section.getSequence()) {
+        if (persists.size() < section.getSequence()) {
             throw new IllegalSectionException(INVALID_SEQUENCE);
         }
 
-        for (final Section value : sections) {
-            value.increaseSequence();
+        for (final Section persist : persists) {
+            persist.increaseSequence();
         }
 
-        sectionRepository.updateAll(sections);
         sectionRepository.save(section);
     }
 
@@ -51,23 +50,22 @@ public class SectionService {
 
         final Section section = request.toEntity();
 
-        final Section savedSection = sectionRepository.findByLineAndStation(section.getLine(),
+        final Section persist = sectionRepository.findByLineAndStation(section.getLine(),
                 section.getStation());
 
-        if (sectionRepository.countByLine(savedSection.getLine()) <= LOWER_BOUND_STATION_SIZE) {
+        final List<Section> persists = sectionRepository.findAllByLineAndSequenceGreaterThanEqual(
+                persist.getLine(), persist.getSequence());
+
+        if (persists.size() <= LOWER_BOUND_STATION_SIZE) {
             throw new IllegalSectionException(CONSTRAINT_STATION_SIZE);
         }
 
-        final List<Section> sections = sectionRepository.findAllByLineAndSequenceGreaterThanEqual(
-                savedSection.getLine(), savedSection.getSequence());
-
-        for (final Section value : sections) {
+        for (final Section value : persists) {
             value.decreaseSequence();
         }
 
-        sectionRepository.updateAll(sections);
-        return sectionRepository.deleteByLineAndStation(savedSection.getLine(),
-                savedSection.getStation());
+        return sectionRepository.deleteByLineAndStation(persist.getLine(),
+                persist.getStation());
     }
 
     private void validateLineAndStation(final String lineName, final String stationName) {

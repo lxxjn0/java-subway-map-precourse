@@ -33,30 +33,12 @@ public class SectionRepository {
                 ;
     }
 
-    public long countByLine(final Line line) {
-        return SECTIONS.stream()
-                .filter(section -> section.match(line))
-                .count()
-                ;
-    }
-
     public void save(final Section section) {
         SECTIONS.add(section);
     }
 
     public void saveAll(final Collection<Section> sections) {
         SECTIONS.addAll(sections);
-    }
-
-    public void update(final Section section) {
-        final Section target = findByLineAndStation(section.getLine(), section.getStation());
-        target.update(section);
-    }
-
-    public void updateAll(final Collection<Section> sections) {
-        for (final Section section : sections) {
-            update(section);
-        }
     }
 
     public boolean deleteByLineAndStation(final Line line, final Station station) {
