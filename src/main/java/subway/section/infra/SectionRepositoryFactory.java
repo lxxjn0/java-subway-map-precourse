@@ -43,7 +43,7 @@ public class SectionRepositoryFactory {
     }
 
     public static SectionRepository generate() {
-        final SectionRepository sectionRepository = new SectionRepository();
+        final SectionRepository sectionRepository = new InMemorySectionRepository();
 
         sectionRepository.saveAll(initializedSections);
         return sectionRepository;

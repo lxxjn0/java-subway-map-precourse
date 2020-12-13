@@ -1,38 +1,18 @@
 package subway.line.domain;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-public class LineRepository {
-    private static final List<Line> LINES = new ArrayList<>();
+public interface LineRepository {
+    List<Line> findAll();
 
-    public List<Line> findAll() {
-        return Collections.unmodifiableList(LINES);
-    }
+    boolean existsByName(final String name);
 
-    public boolean existsByName(final String name) {
-        return LINES.stream()
-                .anyMatch(line -> line.match(name))
-                ;
-    }
+    boolean existsAllByNameIn(final Collection<String> names);
 
-    public boolean existsAllByNameIn(final Collection<String> names) {
-        return names.stream()
-                .allMatch(this::existsByName)
-                ;
-    }
+    void save(final Line line);
 
-    public void save(final Line line) {
-        LINES.add(line);
-    }
+    void saveAll(final Collection<Line> lines);
 
-    public void saveAll(final Collection<Line> lines) {
-        LINES.addAll(lines);
-    }
-
-    public boolean deleteByName(final String name) {
-        return LINES.removeIf(line -> line.match(name));
-    }
+    boolean deleteByName(final String name);
 }

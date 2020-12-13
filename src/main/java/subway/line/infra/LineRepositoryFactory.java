@@ -26,7 +26,7 @@ public class LineRepositoryFactory {
     }
 
     public static LineRepository generate() {
-        final LineRepository lineRepository = new LineRepository();
+        final LineRepository lineRepository = new InMemoryLineRepository();
 
         lineRepository.saveAll(initializedLines);
         return lineRepository;

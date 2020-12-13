@@ -34,7 +34,7 @@ public class StationRepositoryFactory {
     }
 
     public static StationRepository generate() {
-        final StationRepository stationRepository = new StationRepository();
+        final StationRepository stationRepository = new InMemoryStationRepository();
 
         stationRepository.saveAll(initializedStations);
         return stationRepository;
