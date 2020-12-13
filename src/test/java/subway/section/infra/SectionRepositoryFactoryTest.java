@@ -16,7 +16,7 @@ class SectionRepositoryFactoryTest {
 
         // Then
         assertThat(sectionRepository)
-                .extracting(SectionRepository::findAll)
+                .extracting(SectionRepository::findAllByLineOrderBySequence)
                 .asList()
                 .hasSize(10)
         ;

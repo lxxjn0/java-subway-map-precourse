@@ -1,12 +1,15 @@
 package subway.section.domain;
 
+import static subway.section.exception.IllegalSectionException.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import subway.line.domain.Line;
+import subway.section.exception.IllegalSectionException;
 import subway.station.domain.Station;
 
 public class SectionRepository {
@@ -16,12 +19,14 @@ public class SectionRepository {
         return SECTIONS.stream()
                 .filter(section -> section.match(line, station))
                 .findAny()
-                .orElseThrow()
+                .orElseThrow(() -> new IllegalSectionException(INVALID_LINE_OR_STATION))
                 ;
     }
 
-    public List<Section> findAll() {
-        return Collections.unmodifiableList(SECTIONS);
+    public List<Section> findAllByLineOrderBySequence() {
+        return SECTIONS.stream()
+                .sorted(Comparator.comparing(Section::getSequence))
+                .collect(Collectors.toUnmodifiableList());
     }
 
     public List<Section> findAllByLineAndSequenceGreaterThanEqual(final Line line,
