@@ -5,23 +5,23 @@ import java.util.List;
 import subway.line.domain.Line;
 import subway.line.domain.LineRepository;
 import subway.line.exception.IllegalLineException;
-import subway.section.application.SectionService;
+import subway.section.domain.SectionRepository;
 import subway.station.domain.StationRepository;
 import subway.station.exception.IllegalStationException;
 
 public class LineService {
     private final LineRepository lineRepository;
     private final StationRepository stationRepository;
-    private final SectionService sectionService;
+    private final SectionRepository sectionRepository;
 
     public LineService(
             final LineRepository lineRepository,
             final StationRepository stationRepository,
-            final SectionService sectionService
+            final SectionRepository sectionRepository
     ) {
         this.lineRepository = lineRepository;
         this.stationRepository = stationRepository;
-        this.sectionService = sectionService;
+        this.sectionRepository = sectionRepository;
     }
 
     public void create(final LineRequest request) {
@@ -49,7 +49,7 @@ public class LineService {
             throw new IllegalLineException(IllegalLineException.NOT_EXISTS);
         }
 
-        sectionService.removeAllByLine(request.toEntity());
+        sectionRepository.deleteAllByLine(request.toEntity());
         return lineRepository.deleteByName(request.getName());
     }
 }
