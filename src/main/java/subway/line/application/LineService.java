@@ -1,5 +1,8 @@
 package subway.line.application;
 
+import java.util.List;
+
+import subway.line.domain.Line;
 import subway.line.domain.LineRepository;
 import subway.line.exception.IllegalLineException;
 import subway.section.application.SectionService;
@@ -35,6 +38,10 @@ public class LineService {
         }
 
         lineRepository.save(request.toEntity());
+    }
+
+    public List<Line> show() {
+        return lineRepository.findAll();
     }
 
     public boolean deleteByName(final LineDeleteRequest request) {
