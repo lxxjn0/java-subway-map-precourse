@@ -38,6 +38,12 @@ public class SectionRepository {
                 ;
     }
 
+    public boolean existsByStation(final Station station) {
+        return SECTIONS.stream()
+                .anyMatch(section -> section.match(station))
+                ;
+    }
+
     public void save(final Section section) {
         SECTIONS.add(section);
     }

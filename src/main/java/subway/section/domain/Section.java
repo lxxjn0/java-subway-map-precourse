@@ -39,6 +39,10 @@ public class Section {
         return this.line.equals(line);
     }
 
+    public boolean match(final Station station) {
+        return this.station.equals(station);
+    }
+
     public boolean isGreaterThanEqual(final int sequence) {
         return this.sequence >= sequence;
     }

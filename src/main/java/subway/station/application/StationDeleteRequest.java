@@ -10,6 +10,11 @@ public class StationDeleteRequest extends AbstractRequest<Station> {
         this.name = name;
     }
 
+    @Override
+    public Station toEntity() {
+        return new Station(name);
+    }
+
     public String getName() {
         return name;
     }
