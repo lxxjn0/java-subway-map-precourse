@@ -36,4 +36,12 @@ public class LineService {
 
         lineRepository.save(request.toEntity());
     }
+
+    public boolean deleteByName(final LineDeleteRequest request) {
+        if (!lineRepository.existsByName(request.getName())) {
+            throw new IllegalLineException(IllegalLineException.NOT_EXISTS);
+        }
+
+        return lineRepository.deleteByName(request.getName());
+    }
 }
