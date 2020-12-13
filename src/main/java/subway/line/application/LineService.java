@@ -26,6 +26,11 @@ public class LineService {
         if (!stationRepository.existsByName(request.getUpLastStationName())) {
             throw new IllegalStationException(NOT_EXISTS);
         }
+
+        if (!stationRepository.existsByName(request.getDownLastStationName())) {
+            throw new IllegalStationException(NOT_EXISTS);
+        }
+
         lineRepository.save(request.toEntity());
     }
 }
