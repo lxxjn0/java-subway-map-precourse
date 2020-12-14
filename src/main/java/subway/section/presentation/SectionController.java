@@ -14,6 +14,8 @@ import subway.section.application.SectionService;
 import subway.section.application.SectionViewRequest;
 
 public class SectionController extends Controller {
+    public static final String SECTION_URI = "/sections";
+
     private final SectionService sectionService;
 
     public SectionController(final SectionService sectionService) {

@@ -1,5 +1,8 @@
 package subway.section.application;
 
+import static subway.common.domain.RequestMethod.*;
+import static subway.section.presentation.SectionController.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +23,7 @@ public class SectionViewRequest extends AbstractRequest<List<Line>> {
     }
 
     public static SectionViewRequest of(final List<String> lineNames) {
-        return new SectionViewRequest("/sections", RequestMethod.READ, lineNames);
+        return new SectionViewRequest(SECTION_URI, READ, lineNames);
     }
 
     @Override

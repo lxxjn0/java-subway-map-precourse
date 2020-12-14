@@ -12,6 +12,8 @@ import subway.station.application.StationResponse;
 import subway.station.application.StationService;
 
 public class StationController extends Controller {
+    public static final String STATION_URI = "/stations";
+
     private final StationService stationService;
     private final StationDeleteService stationDeleteService;
 

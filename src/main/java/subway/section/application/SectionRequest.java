@@ -1,5 +1,8 @@
 package subway.section.application;
 
+import static subway.common.domain.RequestMethod.*;
+import static subway.section.presentation.SectionController.*;
+
 import subway.common.application.AbstractRequest;
 import subway.common.domain.RequestMethod;
 import subway.section.domain.Section;
@@ -27,7 +30,7 @@ public class SectionRequest extends AbstractRequest<Section> {
             final String lineName,
             final String stationName
     ) {
-        return new SectionRequest("/sections", RequestMethod.CREATE, lineName, stationName,
+        return new SectionRequest(SECTION_URI, CREATE, lineName, stationName,
                 sequence);
     }
 

@@ -1,5 +1,8 @@
 package subway.station.application;
 
+import static subway.common.domain.RequestMethod.*;
+import static subway.station.presentation.StationController.*;
+
 import subway.common.application.AbstractRequest;
 import subway.common.domain.RequestMethod;
 import subway.station.domain.Station;
@@ -17,7 +20,7 @@ public class StationDeleteRequest extends AbstractRequest<Station> {
     }
 
     public static StationDeleteRequest of(final String name) {
-        return new StationDeleteRequest("/stations", RequestMethod.DELETE, name);
+        return new StationDeleteRequest(STATION_URI, DELETE, name);
     }
 
     @Override

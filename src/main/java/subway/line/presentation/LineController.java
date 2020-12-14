@@ -11,6 +11,8 @@ import subway.line.application.LineResponse;
 import subway.line.application.LineService;
 
 public class LineController extends Controller {
+    public static final String LINE_URI = "/lines";
+
     private final LineService lineService;
 
     public LineController(final LineService lineService) {
