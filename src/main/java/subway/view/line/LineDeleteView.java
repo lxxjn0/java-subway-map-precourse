@@ -32,6 +32,7 @@ public class LineDeleteView extends View<Line, LineDeleteResponse> {
         if (response.isDeleted()) {
             System.out.println("[INFO] 지하철 노선이 삭제되었습니다.");
             System.out.println();
+            return;
         }
 
         System.out.printf("[ERROR] %s%n", NOT_EXISTS);
