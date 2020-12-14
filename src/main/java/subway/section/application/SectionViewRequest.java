@@ -1,13 +1,13 @@
 package subway.section.application;
 
-import static subway.common.domain.RequestMethod.*;
+import static subway.common.domain.Method.*;
 import static subway.section.presentation.SectionController.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import subway.common.application.AbstractRequest;
-import subway.common.domain.RequestMethod;
+import subway.common.domain.Method;
 import subway.line.domain.Line;
 
 public class SectionViewRequest extends AbstractRequest<List<Line>> {
@@ -15,10 +15,10 @@ public class SectionViewRequest extends AbstractRequest<List<Line>> {
 
     private SectionViewRequest(
             final String uri,
-            final RequestMethod requestMethod,
+            final Method method,
             final List<String> lineNames
     ) {
-        super(uri, requestMethod);
+        super(uri, method);
         this.lineNames = lineNames;
     }
 

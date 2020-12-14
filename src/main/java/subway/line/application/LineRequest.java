@@ -1,10 +1,10 @@
 package subway.line.application;
 
-import static subway.common.domain.RequestMethod.*;
+import static subway.common.domain.Method.*;
 import static subway.line.presentation.LineController.*;
 
 import subway.common.application.AbstractRequest;
-import subway.common.domain.RequestMethod;
+import subway.common.domain.Method;
 import subway.line.domain.Line;
 
 public class LineRequest extends AbstractRequest<Line> {
@@ -14,12 +14,12 @@ public class LineRequest extends AbstractRequest<Line> {
 
     private LineRequest(
             final String uri,
-            final RequestMethod requestMethod,
+            final Method method,
             final String lineName,
             final String upLastStationName,
             final String downLastStationName
     ) {
-        super(uri, requestMethod);
+        super(uri, method);
         this.lineName = lineName;
         this.upLastStationName = upLastStationName;
         this.downLastStationName = downLastStationName;

@@ -1,10 +1,14 @@
 package subway.view.config;
 
 import static subway.common.domain.Category.*;
-import static subway.common.domain.RequestMethod.*;
+import static subway.common.domain.Method.*;
+import static subway.common.exception.IllegalViewException.*;
+
+import java.util.Arrays;
 
 import subway.common.domain.Category;
-import subway.common.domain.RequestMethod;
+import subway.common.domain.Method;
+import subway.common.exception.IllegalViewException;
 
 public enum ViewMapping {
     STATION_CREATE(STATION, CREATE),
@@ -15,13 +19,32 @@ public enum ViewMapping {
     LINE_READ(LINE, READ),
     SECTION_CREATE(SECTION, CREATE),
     SECTION_DELETE(SECTION, DELETE),
-    MAP_READ(MAP, NOTHING);
+    SECTION_READ(MAP, NOTHING),
+    TERMINATE_PROGRAM(TERMINATE, NOTHING);
 
     final Category category;
-    final RequestMethod requestMethod;
+    final Method method;
 
-    ViewMapping(final Category category, final RequestMethod requestMethod) {
+    ViewMapping(final Category category, final Method method) {
         this.category = category;
-        this.requestMethod = requestMethod;
+        this.method = method;
+    }
+
+    public static ViewMapping fromEmptyMethod(final Category category) {
+        return Arrays.stream(values())
+                .filter(viewMapping -> viewMapping.method.isNothing())
+                .filter(viewMapping -> viewMapping.category.equals(category))
+                .findAny()
+                .orElseThrow(() -> new IllegalViewException(INVALID))
+                ;
+    }
+
+    public static ViewMapping of(final Category category, final Method method) {
+        return Arrays.stream(values())
+                .filter(viewMapping -> viewMapping.category.equals(category))
+                .filter(viewMapping -> viewMapping.method.equals(method))
+                .findAny()
+                .orElseThrow(() -> new IllegalViewException(INVALID))
+                ;
     }
 }

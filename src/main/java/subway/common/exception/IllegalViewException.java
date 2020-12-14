@@ -1,9 +1,9 @@
 package subway.common.exception;
 
-public class IllegalCommandException extends IllegalArgumentException {
+public class IllegalViewException extends IllegalArgumentException {
     public static final String INVALID = "선택할 수 없는 기능입니다.";
 
-    public IllegalCommandException(final String s) {
+    public IllegalViewException(final String s) {
         super(s);
     }
 }

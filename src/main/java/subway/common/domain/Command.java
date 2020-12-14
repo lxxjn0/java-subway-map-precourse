@@ -24,7 +24,15 @@ public enum Command {
         return Arrays.stream(values())
                 .filter(command -> command.input.equals(input))
                 .findAny()
-                .orElseThrow(() -> new IllegalCommandException(INVALID_COMMAND))
+                .orElseThrow(() -> new IllegalCommandException(INVALID))
                 ;
+    }
+
+    public boolean isBack() {
+        return this.equals(BACK);
+    }
+
+    public String getInput() {
+        return input;
     }
 }

@@ -1,10 +1,10 @@
 package subway.section.application;
 
-import static subway.common.domain.RequestMethod.*;
+import static subway.common.domain.Method.*;
 import static subway.section.presentation.SectionController.*;
 
 import subway.common.application.AbstractRequest;
-import subway.common.domain.RequestMethod;
+import subway.common.domain.Method;
 import subway.section.domain.Section;
 
 public class SectionRequest extends AbstractRequest<Section> {
@@ -14,12 +14,12 @@ public class SectionRequest extends AbstractRequest<Section> {
 
     private SectionRequest(
             final String uri,
-            final RequestMethod requestMethod,
+            final Method method,
             final String lineName,
             final String stationName,
             final int sequence
     ) {
-        super(uri, requestMethod);
+        super(uri, method);
         this.sequence = sequence;
         this.lineName = lineName;
         this.stationName = stationName;

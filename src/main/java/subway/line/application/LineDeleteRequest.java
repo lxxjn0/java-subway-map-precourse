@@ -1,10 +1,10 @@
 package subway.line.application;
 
-import static subway.common.domain.RequestMethod.*;
+import static subway.common.domain.Method.*;
 import static subway.line.presentation.LineController.*;
 
 import subway.common.application.AbstractRequest;
-import subway.common.domain.RequestMethod;
+import subway.common.domain.Method;
 import subway.line.domain.Line;
 
 public class LineDeleteRequest extends AbstractRequest<Line> {
@@ -12,10 +12,10 @@ public class LineDeleteRequest extends AbstractRequest<Line> {
 
     private LineDeleteRequest(
             final String uri,
-            final RequestMethod requestMethod,
+            final Method method,
             final String name
     ) {
-        super(uri, requestMethod);
+        super(uri, method);
         this.name = name;
     }
 
