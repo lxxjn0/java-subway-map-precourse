@@ -5,7 +5,8 @@ import static subway.common.domain.Command.*;
 public enum RequestMethod {
     CREATE("등록", ONE),
     DELETE("삭제", TWO),
-    READ("조회", THREE);
+    READ("조회", THREE),
+    NOTHING;
 
     final String name;
     final Command command;
@@ -13,5 +14,9 @@ public enum RequestMethod {
     RequestMethod(final String name, final Command command) {
         this.name = name;
         this.command = command;
+    }
+
+    RequestMethod() {
+        this(null, null);
     }
 }
