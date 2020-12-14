@@ -1,14 +1,14 @@
 package subway.common.application;
 
-import subway.common.domain.Method;
+import subway.common.domain.RequestMethod;
 
 public abstract class AbstractRequest<T> {
     private String uri;
-    private Method method;
+    private RequestMethod method;
 
-    protected AbstractRequest(final String uri, final Method method) {
+    protected AbstractRequest(final String uri, final RequestMethod requestMethod) {
         this.uri = uri;
-        this.method = method;
+        this.method = requestMethod;
     }
 
     public T toEntity() {
@@ -19,7 +19,7 @@ public abstract class AbstractRequest<T> {
         return uri;
     }
 
-    public Method getMethod() {
+    public RequestMethod getMethod() {
         return method;
     }
 }

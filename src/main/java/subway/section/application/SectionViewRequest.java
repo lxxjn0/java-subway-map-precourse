@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import subway.common.application.AbstractRequest;
-import subway.common.domain.Method;
+import subway.common.domain.RequestMethod;
 import subway.line.domain.Line;
 
 public class SectionViewRequest extends AbstractRequest<List<Line>> {
@@ -12,15 +12,15 @@ public class SectionViewRequest extends AbstractRequest<List<Line>> {
 
     private SectionViewRequest(
             final String uri,
-            final Method method,
+            final RequestMethod requestMethod,
             final List<String> lineNames
     ) {
-        super(uri, method);
+        super(uri, requestMethod);
         this.lineNames = lineNames;
     }
 
     public static SectionViewRequest of(final List<String> lineNames) {
-        return new SectionViewRequest("/sections", Method.READ, lineNames);
+        return new SectionViewRequest("/sections", RequestMethod.READ, lineNames);
     }
 
     @Override

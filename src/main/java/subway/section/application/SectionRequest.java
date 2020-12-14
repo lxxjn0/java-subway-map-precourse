@@ -1,7 +1,7 @@
 package subway.section.application;
 
 import subway.common.application.AbstractRequest;
-import subway.common.domain.Method;
+import subway.common.domain.RequestMethod;
 import subway.section.domain.Section;
 
 public class SectionRequest extends AbstractRequest<Section> {
@@ -11,12 +11,12 @@ public class SectionRequest extends AbstractRequest<Section> {
 
     private SectionRequest(
             final String uri,
-            final Method method,
+            final RequestMethod requestMethod,
             final String lineName,
             final String stationName,
             final int sequence
     ) {
-        super(uri, method);
+        super(uri, requestMethod);
         this.sequence = sequence;
         this.lineName = lineName;
         this.stationName = stationName;
@@ -27,7 +27,8 @@ public class SectionRequest extends AbstractRequest<Section> {
             final String lineName,
             final String stationName
     ) {
-        return new SectionRequest("/sections", Method.CREATE, lineName, stationName, sequence);
+        return new SectionRequest("/sections", RequestMethod.CREATE, lineName, stationName,
+                sequence);
     }
 
     @Override

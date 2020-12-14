@@ -1,7 +1,7 @@
 package subway.section.application;
 
 import subway.common.application.AbstractRequest;
-import subway.common.domain.Method;
+import subway.common.domain.RequestMethod;
 import subway.section.domain.Section;
 
 public class SectionDeleteRequest extends AbstractRequest<Section> {
@@ -10,17 +10,17 @@ public class SectionDeleteRequest extends AbstractRequest<Section> {
 
     private SectionDeleteRequest(
             final String uri,
-            final Method method,
+            final RequestMethod requestMethod,
             final String lineName,
             final String stationName
     ) {
-        super(uri, method);
+        super(uri, requestMethod);
         this.lineName = lineName;
         this.stationName = stationName;
     }
 
     public static SectionDeleteRequest of(final String lineName, final String stationName) {
-        return new SectionDeleteRequest("/sections", Method.DELETE, lineName, stationName);
+        return new SectionDeleteRequest("/sections", RequestMethod.DELETE, lineName, stationName);
     }
 
     @Override

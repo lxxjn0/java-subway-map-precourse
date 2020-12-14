@@ -1,7 +1,7 @@
 package subway.station.application;
 
 import subway.common.application.AbstractRequest;
-import subway.common.domain.Method;
+import subway.common.domain.RequestMethod;
 import subway.station.domain.Station;
 
 public class StationRequest extends AbstractRequest<Station> {
@@ -9,15 +9,15 @@ public class StationRequest extends AbstractRequest<Station> {
 
     private StationRequest(
             final String uri,
-            final Method method,
+            final RequestMethod requestMethod,
             final String name
     ) {
-        super(uri, method);
+        super(uri, requestMethod);
         this.name = name;
     }
 
     public static StationRequest of(final String name) {
-        return new StationRequest("/stations", Method.CREATE, name);
+        return new StationRequest("/stations", RequestMethod.CREATE, name);
     }
 
     @Override

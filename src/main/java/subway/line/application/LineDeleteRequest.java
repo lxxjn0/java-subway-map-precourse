@@ -1,7 +1,7 @@
 package subway.line.application;
 
 import subway.common.application.AbstractRequest;
-import subway.common.domain.Method;
+import subway.common.domain.RequestMethod;
 import subway.line.domain.Line;
 
 public class LineDeleteRequest extends AbstractRequest<Line> {
@@ -9,15 +9,15 @@ public class LineDeleteRequest extends AbstractRequest<Line> {
 
     private LineDeleteRequest(
             final String uri,
-            final Method method,
+            final RequestMethod requestMethod,
             final String name
     ) {
-        super(uri, method);
+        super(uri, requestMethod);
         this.name = name;
     }
 
     public static LineDeleteRequest of(final String name) {
-        return new LineDeleteRequest("/lines", Method.DELETE, name);
+        return new LineDeleteRequest("/lines", RequestMethod.DELETE, name);
     }
 
     @Override
