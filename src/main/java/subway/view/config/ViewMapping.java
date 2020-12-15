@@ -19,8 +19,7 @@ public enum ViewMapping {
     LINE_READ(LINE, READ),
     SECTION_CREATE(SECTION, CREATE),
     SECTION_DELETE(SECTION, DELETE),
-    SECTION_READ(MAP, NOTHING),
-    TERMINATE_PROGRAM(TERMINATE, NOTHING);
+    SECTION_READ(MAP, READ);
 
     final Category category;
     final Method method;
@@ -28,15 +27,6 @@ public enum ViewMapping {
     ViewMapping(final Category category, final Method method) {
         this.category = category;
         this.method = method;
-    }
-
-    public static ViewMapping fromEmptyMethod(final Category category) {
-        return Arrays.stream(values())
-                .filter(viewMapping -> viewMapping.method.isNothing())
-                .filter(viewMapping -> viewMapping.category.equals(category))
-                .findAny()
-                .orElseThrow(() -> new IllegalViewException(INVALID))
-                ;
     }
 
     public static ViewMapping of(final Category category, final Method method) {

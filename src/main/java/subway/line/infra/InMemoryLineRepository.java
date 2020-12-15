@@ -24,13 +24,6 @@ public class InMemoryLineRepository implements LineRepository {
     }
 
     @Override
-    public boolean existsAllByNameIn(final Collection<String> names) {
-        return names.stream()
-                .allMatch(this::existsByName)
-                ;
-    }
-
-    @Override
     public void save(final Line line) {
         LINES.add(line);
     }

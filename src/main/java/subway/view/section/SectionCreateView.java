@@ -8,7 +8,7 @@ import subway.section.application.SectionRequest;
 import subway.section.domain.Section;
 import subway.view.config.View;
 
-public class SectionCreateView extends View<Section, Void> {
+public class SectionCreateView extends View<Section> {
     public SectionCreateView(final Scanner scanner) {
         super(scanner);
     }
@@ -39,7 +39,8 @@ public class SectionCreateView extends View<Section, Void> {
     }
 
     @Override
-    public void renderResponse(final ResponseEntity<Void> responseEntity) {
+    public void renderResponse(final ResponseEntity<?> responseEntity) {
         System.out.println("## [INFO] 구간이 등록되었습니다.");
+        System.out.println();
     }
 }

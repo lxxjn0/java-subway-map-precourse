@@ -2,7 +2,7 @@ package subway.common.config;
 
 import static subway.common.config.ControllerMapping.*;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 import subway.common.presentation.Controller;
@@ -25,7 +25,8 @@ public class ControllerConfigurer {
     }
 
     public static Map<ControllerMapping, Controller> generate() {
-        final Map<ControllerMapping, Controller> controllers = new HashMap<>();
+        final Map<ControllerMapping, Controller> controllers = new EnumMap<>(
+                ControllerMapping.class);
 
         final StationRepository stationRepository = StationRepositoryFactory.generate();
         final LineRepository lineRepository = LineRepositoryFactory.generate();

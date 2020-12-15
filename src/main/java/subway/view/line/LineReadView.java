@@ -12,7 +12,7 @@ import subway.line.application.LineResponse;
 import subway.line.domain.Line;
 import subway.view.config.View;
 
-public class LineReadView extends View<Line, List<LineResponse>> {
+public class LineReadView extends View<Line> {
     public LineReadView(final Scanner scanner) {
         super(scanner);
     }
@@ -23,12 +23,12 @@ public class LineReadView extends View<Line, List<LineResponse>> {
     }
 
     @Override
-    public void renderResponse(final ResponseEntity<List<LineResponse>> responseEntity) {
-        final List<LineResponse> responses = responseEntity.getResponse();
+    public void renderResponse(final ResponseEntity<?> responseEntity) {
+        final List<?> responses = (List<?>)responseEntity.getResponse();
 
         System.out.println("## 노선 목록");
-        for (final LineResponse response : responses) {
-            System.out.printf("[INFO] %s%n", response.getName());
+        for (final Object response : responses) {
+            System.out.printf("[INFO] %s%n", ((LineResponse)response).getName());
         }
         System.out.println();
     }

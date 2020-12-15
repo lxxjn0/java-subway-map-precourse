@@ -1,98 +1,49 @@
 package subway.view.config;
 
-import static subway.common.domain.Method.*;
+import static subway.view.config.ViewMapping.*;
 
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Scanner;
 
 import subway.common.domain.Category;
-import subway.common.domain.Command;
 import subway.common.domain.Method;
+import subway.view.line.LineCreateView;
+import subway.view.line.LineDeleteView;
+import subway.view.line.LineReadView;
+import subway.view.section.SectionCreateView;
+import subway.view.section.SectionDeleteView;
+import subway.view.section.SectionReadView;
+import subway.view.station.StationCreateView;
+import subway.view.station.StationDeleteView;
+import subway.view.station.StationReadView;
 
 public class ViewResolver {
-    private final Map<ViewMapping, View<?, ?>> views;
-    private final Scanner scanner;
+    private final Map<ViewMapping, View<?>> views;
 
-    private ViewResolver(final Map<ViewMapping, View<?, ?>> views, final Scanner scanner) {
+    private ViewResolver(final Map<ViewMapping, View<?>> views) {
         this.views = views;
-        this.scanner = scanner;
     }
 
     public static ViewResolver from(final Scanner scanner) {
-        return new ViewResolver(ViewFactory.generate(scanner), scanner);
+        final Map<ViewMapping, View<?>> views = new EnumMap<>(ViewMapping.class);
+
+        views.put(STATION_CREATE, new StationCreateView(scanner));
+        views.put(STATION_DELETE, new StationDeleteView(scanner));
+        views.put(STATION_READ, new StationReadView(scanner));
+
+        views.put(LINE_CREATE, new LineCreateView(scanner));
+        views.put(LINE_DELETE, new LineDeleteView(scanner));
+        views.put(LINE_READ, new LineReadView(scanner));
+
+        views.put(SECTION_CREATE, new SectionCreateView(scanner));
+        views.put(SECTION_DELETE, new SectionDeleteView(scanner));
+        views.put(SECTION_READ, new SectionReadView(scanner));
+
+        return new ViewResolver(views);
     }
 
-    public View<?, ?> resolve() {
-        while (true) {
-            renderMainCategory();
-            final Category category = receiveCategory();
-
-            if (category.hasEmptyMethods()) {
-                return views.get(ViewMapping.fromEmptyMethod(category));
-            }
-
-            renderSelectedCategory(category);
-            final Method method = receiveMethod(category);
-
-            if (!method.isNothing()) {
-                return views.get(ViewMapping.of(category, method));
-            }
-        }
-
-    }
-
-    private Category receiveCategory() {
-        while (true) {
-            try {
-                System.out.println("## 원하는 기능을 선택하세요.");
-                final Command command = Command.from(scanner.nextLine());
-                System.out.println();
-
-                return Category.of(command);
-            } catch (IllegalArgumentException e) {
-                System.out.printf("[ERROR] %s%n", e.getMessage());
-                System.out.println();
-            }
-        }
-    }
-
-    private void renderMainCategory() {
-        System.out.println("## 메인 화면");
-        System.out.println("1. 역 관리");
-        System.out.println("2. 노선 관리");
-        System.out.println("3. 구간 관리");
-        System.out.println("4. 지하철 노선도 출력");
-        System.out.println("Q. 종료");
-        System.out.println();
-    }
-
-    private Method receiveMethod(final Category category) {
-        while (true) {
-            try {
-                System.out.println("## 원하는 기능을 선택하세요.");
-                final Command command = Command.from(scanner.nextLine());
-                System.out.println();
-
-                if (command.isBack()) {
-                    return NOTHING;
-                }
-                category.validate(command);
-                return Method.from(command);
-            } catch (IllegalArgumentException e) {
-                System.out.printf("[ERROR] %s%n", e.getMessage());
-                System.out.println();
-            }
-        }
-    }
-
-    private void renderSelectedCategory(final Category category) {
-        System.out.printf("## %s 관리 화면%n", category.getName());
-        for (Map.Entry<Command, String> entry : category.receiveMethodInfo().entrySet()) {
-            final String commandNumber = entry.getKey().getInput();
-            final String methodName = entry.getValue();
-            System.out.printf("%s. %s %s", commandNumber, category.getName(), methodName);
-        }
-        System.out.println("B. 돌아가기");
-        System.out.println();
+    public View<?> resolve(final Category category, final Method method) {
+        return views.get(ViewMapping.of(category, method));
     }
 }

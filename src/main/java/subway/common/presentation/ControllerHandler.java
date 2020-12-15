@@ -4,6 +4,7 @@ import static subway.common.exception.IllegalRequestException.*;
 
 import java.util.Map;
 
+import subway.common.application.AbstractRequest;
 import subway.common.config.ControllerConfigurer;
 import subway.common.config.ControllerMapping;
 import subway.common.exception.IllegalRequestException;
@@ -14,12 +15,12 @@ public class ControllerHandler {
     private ControllerHandler() {
     }
 
-    public static Controller getController(final String uri) {
+    public static Controller getController(final AbstractRequest<?> request) {
         return CONTROLLERS.entrySet().stream()
-                .filter(entry -> entry.getKey().match(uri))
+                .filter(entry -> entry.getKey().match(request.getUri()))
                 .map(Map.Entry::getValue)
                 .findAny()
-                .orElseThrow(() -> new IllegalRequestException(INVALID_URI))
+                .orElseThrow(() -> new IllegalRequestException(INVALID))
                 ;
     }
 }

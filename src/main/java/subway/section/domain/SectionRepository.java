@@ -16,6 +16,8 @@ public interface SectionRepository {
 
     boolean existsByStation(final Station station);
 
+    long countAllByLine(final Line line);
+
     void save(final Section section);
 
     void saveAll(final Collection<Section> sections);

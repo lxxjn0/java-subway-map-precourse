@@ -11,7 +11,7 @@ import subway.line.application.LineDeleteResponse;
 import subway.line.domain.Line;
 import subway.view.config.View;
 
-public class LineDeleteView extends View<Line, LineDeleteResponse> {
+public class LineDeleteView extends View<Line> {
     public LineDeleteView(final Scanner scanner) {
         super(scanner);
     }
@@ -26,8 +26,8 @@ public class LineDeleteView extends View<Line, LineDeleteResponse> {
     }
 
     @Override
-    public void renderResponse(final ResponseEntity<LineDeleteResponse> responseEntity) {
-        final LineDeleteResponse response = responseEntity.getResponse();
+    public void renderResponse(final ResponseEntity<?> responseEntity) {
+        final LineDeleteResponse response = (LineDeleteResponse)responseEntity.getResponse();
 
         if (response.isDeleted()) {
             System.out.println("[INFO] 지하철 노선이 삭제되었습니다.");

@@ -5,7 +5,7 @@ import java.util.Scanner;
 import subway.common.application.AbstractRequest;
 import subway.common.application.ResponseEntity;
 
-public abstract class View<T, R> {
+public abstract class View<T> {
     protected final Scanner scanner;
 
     protected View(final Scanner scanner) {
@@ -14,5 +14,5 @@ public abstract class View<T, R> {
 
     public abstract AbstractRequest<T> getRequest();
 
-    public abstract void renderResponse(final ResponseEntity<R> responseEntity);
+    public abstract void renderResponse(final ResponseEntity<?> responseEntity);
 }

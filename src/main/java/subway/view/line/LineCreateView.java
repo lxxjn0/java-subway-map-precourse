@@ -8,7 +8,7 @@ import subway.line.application.LineRequest;
 import subway.line.domain.Line;
 import subway.view.config.View;
 
-public class LineCreateView extends View<Line, Void> {
+public class LineCreateView extends View<Line> {
     public LineCreateView(final Scanner scanner) {
         super(scanner);
     }
@@ -31,7 +31,7 @@ public class LineCreateView extends View<Line, Void> {
     }
 
     @Override
-    public void renderResponse(final ResponseEntity<Void> responseEntity) {
+    public void renderResponse(final ResponseEntity<?> responseEntity) {
         System.out.println("[INFO] 지하철 노선이 등록되었습니다.");
         System.out.println();
     }

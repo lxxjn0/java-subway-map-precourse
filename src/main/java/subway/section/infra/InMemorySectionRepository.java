@@ -53,6 +53,14 @@ public class InMemorySectionRepository implements SectionRepository {
     }
 
     @Override
+    public long countAllByLine(final Line line) {
+        return SECTIONS.stream()
+                .filter(section -> section.match(line))
+                .count()
+                ;
+    }
+
+    @Override
     public void save(final Section section) {
         SECTIONS.add(section);
     }

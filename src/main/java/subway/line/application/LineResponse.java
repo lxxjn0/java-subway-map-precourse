@@ -1,11 +1,12 @@
 package subway.line.application;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import subway.line.domain.Line;
 
-public class LineResponse {
+public class LineResponse implements Comparable<LineResponse> {
     private String name;
 
     private LineResponse(final String name) {
@@ -25,5 +26,25 @@ public class LineResponse {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int compareTo(final LineResponse o) {
+        return this.name.compareTo(o.name);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        final LineResponse that = (LineResponse)o;
+        return Objects.equals(getName(), that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName());
     }
 }

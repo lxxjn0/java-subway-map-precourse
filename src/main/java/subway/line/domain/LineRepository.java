@@ -8,8 +8,6 @@ public interface LineRepository {
 
     boolean existsByName(final String name);
 
-    boolean existsAllByNameIn(final Collection<String> names);
-
     void save(final Line line);
 
     void saveAll(final Collection<Line> lines);

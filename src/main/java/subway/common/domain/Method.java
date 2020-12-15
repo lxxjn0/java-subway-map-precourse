@@ -33,6 +33,18 @@ public enum Method {
                 ;
     }
 
+    public boolean isCreate() {
+        return this.equals(CREATE);
+    }
+
+    public boolean isDelete() {
+        return this.equals(DELETE);
+    }
+
+    public boolean isRead() {
+        return this.equals(READ);
+    }
+
     public boolean isNothing() {
         return this.equals(NOTHING);
     }

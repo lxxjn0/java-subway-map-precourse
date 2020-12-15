@@ -5,9 +5,11 @@ import static subway.section.exception.IllegalSectionException.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import subway.line.application.LineResponse;
+import subway.line.domain.Line;
 import subway.line.domain.LineRepository;
 import subway.line.exception.IllegalLineException;
 import subway.section.domain.Section;
@@ -35,7 +37,9 @@ public class SectionService {
         final List<Section> persists = sectionRepository.findAllByLineAndSequenceGreaterThanEqual(
                 section.getLine(), section.getSequence());
 
-        if (persists.size() < section.getSequence()) {
+        final long availableSequence = sectionRepository.countAllByLine(section.getLine()) + 1;
+
+        if (availableSequence < section.getSequence()) {
             throw new IllegalSectionException(INVALID_SEQUENCE);
         }
 
@@ -46,18 +50,19 @@ public class SectionService {
         sectionRepository.save(section);
     }
 
-    public Map<LineResponse, List<SectionResponse>> showAllByEachLine(
-            final SectionViewRequest request) {
-        if (!lineRepository.existsAllByNameIn(request.getLineNames())) {
-            throw new IllegalLineException(IllegalLineException.NOT_EXISTS);
-        }
+    public Map<LineResponse, List<SectionResponse>> showAllByEachLine() {
+        final List<Line> lines = lineRepository.findAll();
 
-        return request.toEntity().stream()
-                .collect(Collectors.toMap(
-                        LineResponse::from,
-                        line -> SectionResponse.toList(
-                                sectionRepository.findAllByLineOrderBySequence(line)
-                        )))
+        return lines.stream()
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toMap(
+                                LineResponse::from,
+                                line -> SectionResponse.toList(
+                                        sectionRepository.findAllByLineOrderBySequence(line)
+                                )),
+                        TreeMap::new
+                        )
+                )
                 ;
     }
 
